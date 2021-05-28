@@ -1,6 +1,6 @@
 //
 //  Provider.swift
-//  AirNOWWidgetExtension
+//  AQIIndexWidgetExtension
 //
 //  Created by Віктор Бережницький on 15.04.2021.
 //
@@ -11,18 +11,18 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     
-    typealias Entry = AirNOWEntry
+    typealias Entry = AQIIndexEntry
     
     var widgetLocation = WidgetLocationManager()
         
-    func placeholder(in context: Context) -> AirNOWEntry {
-        AirNOWEntry.mockEntry()
+    func placeholder(in context: Context) -> AQIIndexEntry {
+        AQIIndexEntry.mockEntry()
     }
     
     
     // Показується коли ми додаємо новий віджет в меню віджетів
-    func getSnapshot(in context: Context, completion: @escaping (AirNOWEntry) -> ()) {
-        let entry = AirNOWEntry.mockEntry()
+    func getSnapshot(in context: Context, completion: @escaping (AQIIndexEntry) -> ()) {
+        let entry = AQIIndexEntry.mockEntry()
         completion(entry)
     }
     
@@ -34,7 +34,7 @@ struct Provider: TimelineProvider {
                 switch result {
                 case .success(let model):
                     let object = ElementManager.shared.getNearest(coordinate: location.coordinate, elements: model)
-                    let entry = AirNOWEntry(date: Date(), viewModel: [object])
+                    let entry = AQIIndexEntry(date: Date(), viewModel: [object])
                     
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 1, to: Date())!
                     let timeLine = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -42,8 +42,8 @@ struct Provider: TimelineProvider {
                     completion(timeLine)
                     
                 case .failure(_):
-                    let object = LUNViewModel.getMockElement(condition: .NoData)
-                    let entry = AirNOWEntry(date: Date(), viewModel: [object])
+                    let object = AQIIndexViewModel.getMockElement(condition: .NoData)
+                    let entry = AQIIndexEntry(date: Date(), viewModel: [object])
                     
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 1, to: Date())!
                     let timeLine = Timeline(entries: [entry], policy: .after(refreshDate))
