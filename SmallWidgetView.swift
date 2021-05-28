@@ -10,9 +10,9 @@ import WidgetKit
 
 struct SmallWidgetView: View {
     
-    private var model: LUNViewModel
+    private var model: AQIIndexViewModel
     
-    init(model: LUNViewModel) {
+    init(model: AQIIndexViewModel) {
         self.model = model
     }
     
@@ -86,7 +86,7 @@ struct SmallWidgetView: View {
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(model: LUNViewModel.getMockElement(condition: .Good))
+        SmallWidgetView(model: AQIIndexViewModel.getMockElement(condition: .Good))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
